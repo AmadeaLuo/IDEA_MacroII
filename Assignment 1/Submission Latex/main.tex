@@ -1,0 +1,1142 @@
+\documentclass[9pt]{tufte-handout}
+\usepackage{amsfonts}
+\usepackage{palatino}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{amsthm}
+\usepackage{listings}
+\usepackage{csquotes}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{eucal}
+\usepackage{geometry}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+
+
+
+\hypersetup{
+    colorlinks = true,
+    citecolor = [RGB]{114, 0, 0},
+    urlcolor = [RGB]{12, 25, 104},
+    linkcolor = [RGB]{114, 0, 0}
+}
+
+\usepackage{natbib}
+\setcitestyle{authoryear}
+\bibliographystyle{agsm}
+
+\newcommand{\bkt}[1]{\{ #1 \}}
+\newcommand{\inline}[1]{$ #1 $}
+\newcommand{\brvt}[2]{\biggr\rvert_{#1}^{#2}}
+\newcommand{\problem}[1]{{\color{gray} #1}}
+\newcommand{\solution}[1]{{\color{NavyBlue} #1}}
+\renewcommand{\d}[1]{\, \mathrm{d} #1}
+\newcommand{\td}[2]{\frac{\d #1}{\d #2}}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\cov}[2]{\mathrm{Cov}({#1}, {#2})}
+\newcommand{\E}[1]{\mathrm{E} \left[ #1 \right]}
+\newcommand{\lrbbkt}[1]{\left[ #1 \right]}
+\newcommand{\lrbkt}[1]{\left( #1 \right)}
+\newcommand{\lrbbbkt}[1]{\left\{ #1 \right\}}
+\newcommand{\samean}{\boldsymbol{{\bar{x}}}}
+\newcommand{\rv}[1]{\widetilde{#1}}
+\newcommand{\var}[1]{\mathrm{Var} \left( #1 \right)}
+\newcommand{\qedblack}{\hfill \blacksquare}
+\renewcommand{\P}{\mathbb{P}}
+
+
+\newtheorem*{Proof}{Proof}
+\newtheorem*{Solution}{Solution}
+\newtheorem{Theorem}{Theorem}
+\newtheorem{Lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+
+\title{Macroeconomics II, Problem Set 1 (Individual)}
+\author{Jingwan (Amadea) Luo \thanks{IDEA Graduate Programme in Economics, first year student}}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{marginfigure}
+	\includegraphics[scale = 0.35]{IDEA.png}
+\end{marginfigure}
+
+
+
+\begin{abstract}
+	This document answers all questions in the problem set 1 of \textit{Macroeconomics II} taught by \textit{Prof. Alexander Ludwig}. Content in \textcolor{NavyBlue}{\textbf{blue}} is for grading. Sidenote is for self-memo. For computational and empirical analysis, the software in use is \texttt{Matlab}. Codes are saved for Section Annex, the \texttt{.m} files can be found both accompanied with my submission to \textit{TA. Mridula Duggal} before \textit{27th Jan., 9 a.m.} and also my Github Repository \sidenote{\url{https://github.com/AmadeaLuo/IDEA_MacroII}}.
+\end{abstract}
+
+\section{The Solow Growth Model in Discrete Time}
+\problem{Consider a closed economy where in each period \inline{t} output \inline{Y_t} is produced using a neoclassical production function \inline{F(\cdot)} with inputs capital \inline{K_t} and labour \inline{L_t}. Labour is augmented by a technology level \inline{A_t} so that \inline{A_{t}L_{t}} are the efficiency units of labour. Thus, output in the economy is given by
+\begin{align}
+	Y_t = F(K_t, A_t L_t) \label{eq:prod}
+\end{align}
+In a closed economy we have that from national income accounting all goods produced must be consumed or invested. Aggregate consumption in the economy is \inline{C_t} and aggregate investment is \inline{I_t} and thus
+\begin{align}
+	Y_t = C_t + I_t \label{eq:grac}
+\end{align}
+Installed capital depreciates in each period at constant rate \inline{\delta}. Over time, the capital stock therefore evolves as
+\begin{align}
+	K_{t+1} = K_t (1-\delta) + I_t \label{eq:cap}
+\end{align}
+We assume a constant saving rate \inline{s}, so that aggregate savings in the economy are \inline{S_t = sY_t} and aggregate consumption is \inline{C_t = (1-s)Y_t}. \par 
+Throughout, we assume a Cobb-Douglas production function
+\begin{align}
+	Y_t = F(K_t, A_t L_t) = K_t^\alpha (A_t L_t)^{1-\alpha} \label{eq:prod_el}
+\end{align}
+and we define by \inline{k_t = \frac{K_t}{A_t L_t}} the capital stock per efficiency unit.
+}
+
+\subsection{1.1 Analysis of the model}
+\bigskip
+\subsubsection{\textsc{Question 1.1.1}}
+\problem{Show that the aggregate income resource constraint can be rewritten as
+\begin{align}
+	K_{t+1} = F(K_t, A_t L_t) + (1-\delta)K_t -C_t \label{eq:4}
+\end{align}
+}
+\solution{\begin{Solution}
+	\normalfont
+	Recall total amount of goods is either consumed or invested, by Equation (\ref{eq:grac}) we rewrite investment \inline{I_t} as
+	\begin{align*}
+		I_t = Y_t - C_t,
+	\end{align*}
+	Further, total amount of goods in the economy, or output, is produced under Equation (\ref{eq:prod}), thus investment \inline{I_t} is also
+	\begin{align*}
+		I_t = F(K_t, A_t L_t)-C_t,
+	\end{align*}
+	combine the re-written investment with law of motion of capital presented in Equation (\ref{eq:cap}) gives the desired result which is
+	\begin{align*}
+		K_{t+1} = (1-\delta)K_t + F(K_t, A_t L_t)-C_t.
+	\end{align*}
+	\qedblack
+\end{Solution}
+}
+
+\bigskip
+
+\subsubsection{\textsc{Question 1.1.2}}
+\problem{Use the Cobb-Douglas production function and show that you can rewrite the production function in intensive form as
+\begin{align*}
+	y_t = f(k_t) = k_t^\alpha
+\end{align*}
+where \inline{y_t = \frac{Y_t}{A_t L_t}} and \inline{k_t = \frac{K_t}{A_t L_t}}.
+}
+
+\solution{\begin{Solution}
+	\normalfont
+	Taking the functional form of production function given in Equation (\ref{eq:prod_el}) and divided both sides with \inline{A_t L_t},
+	\begin{align*}
+		y_t \equiv \frac{Y_t}{A_t L_t} = K_t^\alpha \cdot \frac{(A_t L_t)^{1-\alpha}}{A_t L_t} = \lrbkt{\frac{K_t}{A_t L_t}}^\alpha \equiv k_t^\alpha, \quad \alpha \in (0,1),
+	\end{align*}
+	Notice that with the assumption of the functional form in Equation (\ref{eq:prod_el}), production function exhibits constant returns to scale, to see this, take \inline{\lambda \in \mathbb{R}_+}
+	\begin{align*}
+		F(\lambda K_t, \lambda A_t L_t) = \lambda^\alpha \lambda^{1-\alpha} K_t^\alpha L_t^{1-\alpha} = \lambda K_t^\alpha (A_t L_t)^{1-\alpha} = \lambda F(K_t, A_t L_t),
+	\end{align*}
+	Recall production function presented in Equation (\ref{eq:prod}), divided both sides with \inline{A_t L_t} and write it in output per capita term gives \sidenote{Here the validity of this step is relying on the assumption of production function being constant returns to scale, which is proved earlier.}
+	\begin{align*}
+		y_t \equiv \frac{Y_t}{A_t L_t} = F(\frac{K_t}{A_t L_t}, 1) = f(k_t),
+	\end{align*}
+	So now that with constant returns to scale of the production function, output per capita is simply a function of the capital-effective labour ratio. \par 
+	In conclusion,
+	\begin{align*}
+		y_t = f(k_t) =k_t^\alpha.
+	\end{align*}
+	as requested to prove.
+	\qedblack
+\end{Solution}
+}
+
+\bigskip
+
+\subsubsection{\textsc{Question 1.1.3}}
+\problem{Show that \inline{f(k_t)} satisfies \textit{Inada Condition} and is globally concave. 
+}
+\solution{\begin{Solution}
+	\normalfont
+	For \inline{k_t \in \mathbb{R}^+} and \inline{f(k_t)=k_t^\alpha}, it's evidently \textit{twice differentiable} on \inline{(0, \infty)}, since \inline{k_t \in (0, \infty)}, 
+	\begin{align*}
+		\lim_{k_t \to 0} f(k_t) = 1 \quad \lim_{k_t \to \infty} f(k_t) = 0,
+	\end{align*}
+	for all \inline{\alpha \in (0,1)}, therefore it satisfies Inada condition; \par 
+	Let's look at the Hessian of \inline{f(k_t)}
+	\begin{align*}
+		f^{\prime}(k_t) = \alpha k_t^{\alpha-1}>0, f^{\prime\prime}(k_t)=\alpha(\alpha-1)k_t^{\alpha-2}<0, \quad \alpha \in(0,1)
+	\end{align*}
+	So the Hessian is negative-definite for any \inline{k_t}, meaning it's globally concave.
+	\qedblack
+\end{Solution}
+}
+
+\subsubsection{\textsc{Question 1.1.4}}
+\problem{Let profits of the representative firm be
+\begin{align*}
+	\Pi_t = f(k_t)A_t L_t - w_t L_t - (r_t + \delta)K_t.
+\end{align*}
+Show that profit maximisation implies that \sidenote{\begin{Theorem}[Euler Theorem]
+	 Suppose that $g:\mathbb{R}^{K+2}\to \mathbb{R}$ is differentiable in $x \in \mathbb{R}$ and $y \in \mathbb{R}$, with partial derivatives denoted by $g_{x}$ and $g_{y}$,  and is homogenous of degree $m$ in $x$ and $y$. Then:
+	\begin{align*}
+		&mg(x,y,z)=g_{x}(x,y,z)\cdot x + g_{y}(x,y,z) \cdot y \\ &\forall x \in \mathbb{R}, y \in \mathbb{R}, z \in \mathbb{R}^{K}
+	\end{align*}
+	\begin{proof}
+		We have that $g$ is differentiable and  $\lambda^{m}g(x,y,z)=g(\lambda x, \lambda y, z)$. Differentiate both sides with respect to $\lambda$, which gives: $m\lambda^{m-1}g(x,y,z)=g_{x}(\lambda x, \lambda y, z)x+g_{y}(\lambda x, \lambda y, z)y$.
+	\end{proof}
+\end{Theorem}}
+\begin{align*}
+	r_t &= f^{\prime} (k_t) -\delta \tag{5a} \label{eq:zerok} \\ w_t &= A_t f(k_t)-f^{\prime}(k_t) k_t \tag{5b} \label{eq:zerow} \\ \Pi_t &=0 \tag{5c} \label{eq:zerop}
+\end{align*}
+}
+\solution{\begin{Solution}
+	\normalfont
+	Notice that firstly
+	\begin{align*}
+		f(k_t)A_t L_t = F(k_t \cdot A_t L_t, A_t L_t) = F(K_t, A_t L_t) = Y_t,
+	\end{align*}
+	We first set up the firms' profit maximisation problem and check its first order conditions
+	\begin{align*}
+\max_{K, L} \Pi _{t} =F( K_{t} , A_t L_{t}) &-w_{t} L_{t} -( r_{t} +\delta ) K_{t}\\
+[ L_{t}] : \frac{\partial F_{L}( K_{t} , A_t L_{t})}{\partial L_{t}} -w_{t} & =_{\text{set}} 0\\
+( 1-\alpha ) K_{t}^{\alpha } A_{t}^{1-\alpha } L_{t}^{-\alpha } & =w_{t}\\
+( 1-\alpha )\frac{Y_{t}}{L_{t}} & =w_{t}; \\
+[ K_{t}] :\frac{\partial F_{K}( K_{t} , A_t L_{t})}{\partial K_{t}} -( r_{t} +\delta ) & =_{\text{set}} 0\\ \alpha K_{t}^{\alpha -1}( A_{t} L_{t})^{1-\alpha } & =r_{t} +\delta \\
+\alpha \frac{Y_{t}}{K_{t}} & =r_{t} +\delta ;
+	\end{align*}
+	Substitute the first order conditions back into the objective function, then by Euler's Theorem \sidenote{Recall that in \textsc{Question 1.1.2} we've proved that \inline{F(K,L)} is homogenous of degree one (constant returns to scale), so in Theorem 1, we apply the case where \inline{m=1}.}
+	\begin{align*}	
+\Pi _{t} & =F( K_{t} ,\ A_t L_{t}) -w_{t} L_{t} -( r_{t} +\delta ) K_{t}\\
+ & =F( K_{t} ,A_t L_{t}) -\underbrace{( 1-\alpha )\frac{Y_{t}}{L_{t}}}_{=w_{t} =\frac{\partial F_{L}( K_{t} ,\ L_{t})}{\partial L_{t}}} L_{t} -\underbrace{\alpha \frac{Y_{t}}{K_{t}}}_{=r_{t} +\delta =\frac{\partial F_{K}( K_{t} ,\ L_{t})}{\partial K_{t}}} K_{t}\\
+ & =0.
+	\end{align*}
+	Therefore Equation (\ref{eq:zerop}) is proved. In turn, profit is zero also in effective labour terms, \inline{\pi_t = 0}.
+	Transform the profit function into per effective labour units,
+	\begin{align*}
+		\frac{\Pi_t}{A_t L_t} &= f(k_t)- w_t \cdot \frac{1}{A_t}-(r_t + \delta) \frac{K_t}{A_t L_t}, \\ \pi_t &= f(k_t)- \underbrace{w_t \cdot \frac{1}{A_t}}_{\text{detrended wage rate}} - (r_t + \delta)k_t.
+	\end{align*}
+	Firms' profit maximisation problem is then
+	\begin{align*}
+		\max_{k_t} \pi_t,
+	\end{align*}
+	Compute the first order condition with respect to \inline{k_t} and set it to zero
+	\begin{align*}
+		f^{\prime}(k_t)=(r_t+\delta),
+	\end{align*}
+	So we reached the condition required in Equation (\ref{eq:zerok}). Together with \textit{zero profit condition} and substitute the above \inline{\mathcal{F.O.C.}} into the objective function in effective labour terms
+	\begin{align*}
+		f(k_t)-\frac{w_t}{A_t}-(r_t+\delta)k_t &=0, \\ f(k_t)-f^{\prime}(k_t)k_t=\frac{w_t}{A_t}. \tag{1.1.4.1} \label{eq:wagefoc}
+	\end{align*}
+	Therefore, condition presented in Equation (\ref{eq:zerow}) is also reached.
+	\qedblack
+\end{Solution}
+}
+
+\bigskip
+
+\subsubsection{\textsc{Question 1.1.5}}
+\problem{Assume that \inline{A_t = A_0 (1+g)^t}, \inline{L_t = L_0 (1+n)^t} for some initial levels \inline{A_0, L_0}. Show that you can rewrite Equation (\ref{eq:4}) as
+\begin{align}
+	k_{t+1} = \frac{1}{(1+g)(1+n)}(sf(k_t)+(1-\delta)k_t) \label{eq:6}
+\end{align}
+and argue why this implies a unique long-run equilibrium capital stock \inline{k^*}.
+}
+\solution{\begin{Solution}
+	\normalfont
+	Notice that we can re-write 
+	\begin{align*}
+		K_{t+1} &= (1-\delta)K_t+F(K_t, A_t L_t)-C_t \\ &=  (1-\delta)K_t+ Y_t - (1-s)Y_t \\ &= (1-\delta)K_t + sY_t,
+	\end{align*}
+	Or in per effective labour
+	\begin{align*}
+		\frac{K_{t+1}}{A_{t+1}L_{t+1}} \frac{A_{t+1}L_{t+1}}{A_t L_t}&=(1-\delta)k_t + sy_t, \\ k_{t+1}(1+g)(1+n) &=(1-\delta)k_t + sy_t. \tag{1.1.5.1} \label{eq:solowd}
+	\end{align*}
+	Recall that \inline{y_t = f(k_t)} substitute it in, then
+	\begin{align*}
+		k_{t+1} = \frac{1}{(1+g)(1+n)}\lrbkt{sf(k_t)+(1-\delta)k_t}
+	\end{align*}
+	is reached. \par 
+	\fbox{Reason:} Firstly, the RHS of Equation \ref{eq:6}) is continuous, strictly concave and satisfies Inada condition, it's evidently that we will have a fixed point for which \inline{RHS(k^*) = k^*} can be proved by Banach fixed point theorem; secondly, functions with Inada condition satisfied can guarantee the existence of interior equilibria.
+	\qedblack
+\end{Solution}
+}
+
+\bigskip
+
+\subsubsection{\textsc{Question 1.1.6}}
+\problem{Show that you can rewrite Equation (\ref{eq:6}) further as
+\begin{align}
+	\Delta k_t (n+g+ng) = sf(k_t)-(\delta+n+g+ng)k_t
+\end{align}
+where \inline{\Delta k_t = k_{t+1}-k_t}, and plot \inline{f(k_t)}, \inline{sf(k_t)-(\delta+n+g+ng)k_t} as well as the equilibrium capital stock \inline{k^*}. Assume that \inline{n\cdot g=0} and provide an interpretation of \inline{k^*}.
+}
+\solution{\begin{Solution}
+	\normalfont
+	By Equation (\ref{eq:solowd}),  
+	\begin{align*}
+		k_{t+1}(1+g)(1+n) -(1+g)(1+n) k_t &= k_t(1-\delta-(1+g)(1+n))+sy_t, \\ \Delta k_t (1+g)(1+n) &= -k_t (n+g+ng+\delta)+sf(k_t),
+	\end{align*}
+	as requested. At steady state, \inline{\Delta k_t =0},
+	\begin{align*}
+		k^* (n+g+ng+\delta) &=s k^*, \\ k^{*} &= \lrbkt{\frac{s}{n+g+ng+\delta}}^{\frac{1}{1-\alpha}}.
+	\end{align*}
+	\begin{marginfigure}
+		\includegraphics[scale = 0.1]{1.1.6.png}
+		\caption{\textsc{Production function, Breakeven Investment and Equilibrium Capital}}
+		\label{fig:1}
+	\end{marginfigure}
+	\noindent Figure (\ref{fig:1}) depicts the Solow dynamics as requested. The calibration parameters in use are as followed, values in use are from \citep{gomme2013calibration}.
+	\begin{table}
+		\centering
+		\begin{tabular}{c | c | c}
+			\hline \hline
+			Meaning & Notation & Value \\
+			\hline \hline
+			Saving Rate & $s$ & 0.2 \\
+			Capital Share & $\alpha$ & 0.3 \\
+			Population Growth Rate & $n$ & 0.01 \\
+			Depreciation Rate & $\delta$ & 0.05 \\
+			Technology Growth Rate & $g$ & 0.05 \\ \hline \hline
+		\end{tabular}
+	\end{table}
+	\\
+	\smallskip
+	\noindent The codes to generate the plot can be found at Annex. \qedblack
+\end{Solution}
+}
+
+\subsection{1.2 Computational Analysis of the Model}
+\problem{Assume that the initial equilibrium, i.e., for all \inline{t \leq 0}, saving rate is \inline{s^* = 0.2}:
+}
+
+\bigskip
+
+\subsubsection{\textsc{Question 1.2.1}}
+\problem{Assume that a social planner implements the saving rate \inline{s^{GR}} in period \inline{t=1}. Argue and verbally characterise the equilibrium dynamics of the capital intensity \inline{k_t} over time.
+}
+\solution{\begin{Solution}
+	\normalfont
+	At golden rule saving rate, capital's dynamics is on balanced growth path, growth rate of capital is consistent with the growth rate of consumption and output.
+	\qedblack
+\end{Solution}
+}
+
+\bigskip
+
+\subsubsection{\textsc{Question 1.2.2}}
+\problem{Analytically compute the labour share \inline{LS_t = \frac{w_t L_t}{Y_t}} for the Cobb-Douglas production function.
+}
+\solution{\begin{Solution}
+	\normalfont Recall in Equation (\ref{eq:prod_el}) the functional form of Cobb-Douglas function,
+	\begin{align*}
+		LS_t &= \frac{w_t L_t}{Y_t} \\ &= \frac{w_t L_t}{K_t^\alpha (A_t L_t)^{1-\alpha}} \\ &= w_t \cdot \lrbkt{\frac{K_t}{A_t L_t}}^{-\alpha} \\ &= w_t k_t^{-\alpha},
+	\end{align*}
+	Also recall that in Equation (\ref{eq:wagefoc}),
+	\begin{align*}
+		\frac{w_t}{A_t} &= f(k_t) - f^{\prime}(k_t)k_t \\ &= k_t^\alpha - \alpha k_t^{\alpha-1}k_t \\ &= (1-\alpha)k_t^\alpha \\ w_t &= A_t [(1-\alpha)k_t^\alpha];
+	\end{align*}
+	Substitute \inline{w_t} in, \sidenote{Since the labour cost \inline{w_t L_t} is not in effective labour units, in the final analytical expression, there's an extra \inline{A_t} comparing to the standard result, which is \inline{1-\alpha}.}
+	\begin{align*}
+		LS_t = A_t [(1-\alpha)k_t^\alpha]\cdot k_t^{-\alpha}=A_t (1-\alpha).
+	\end{align*}
+	\qedblack
+\end{Solution}
+}
+
+\subsubsection{\textsc{Question 1.2.3}}
+\problem{Go to the \href{https://apps.bea.gov/iTable/?reqid=19&step=2&isuri=1&categories=survey}{NIPA (National Income and Product Accounts) tables} and obtain the following annual time series starting in 1960 \sidenote{Here, duration of study is 1960-2022, frequency in use is \textit{annual}, unit in use is \textit{billions}.}:
+\begin{itemize}
+	\item [+] ``Gross domestic product'' from \href{https://apps.bea.gov/iTable/?reqid=19&step=2&isuri=1&categories=survey#eyJhcHBpZCI6MTksInN0ZXBzIjpbMSwyLDNdLCJkYXRhIjpbWyJjYXRlZ29yaWVzIiwiU3VydmV5Il0sWyJOSVBBX1RhYmxlX0xpc3QiLCI1Il1dfQ==}{Table 1.1.5} \citep{gdp1.2.3.115};
+	\item [+] ``Compensation of employees'' from \href{https://apps.bea.gov/iTable/?reqid=19&step=2&isuri=1&categories=survey#eyJhcHBpZCI6MTksInN0ZXBzIjpbMSwyLDNdLCJkYXRhIjpbWyJjYXRlZ29yaWVzIiwiU3VydmV5Il0sWyJOSVBBX1RhYmxlX0xpc3QiLCI1MyJdXX0=}{Table 1.12} \citep{compensation1.2.3.112a} ;
+	\item [+] ``Proprietors' income with IVA and CCAdj'', ``Taxes on production and imports'', ``Business current transfer payments (net)'', ``Current Surplus of government enterprises'' from \href{https://apps.bea.gov/iTable/?reqid=19&step=2&isuri=1&categories=survey#eyJhcHBpZCI6MTksInN0ZXBzIjpbMSwyLDNdLCJkYXRhIjpbWyJjYXRlZ29yaWVzIiwiU3VydmV5Il0sWyJOSVBBX1RhYmxlX0xpc3QiLCI1MyJdXX0=}{Table 1.12}. \citep{compensation1.2.3.112b} Sum these up and call them ``Adjustment to GDP''.
+\end{itemize}
+}
+\solution{\begin{Solution}
+	\normalfont
+	Please find the code in annex as well as descriptive statistics of the extracted variables in Table (\ref{tab:summ}).
+	\begin{table}
+		\begin{tabular}{llllll}
+		\hline\hline
+& Mean & Median & S.d. & Min & Max \\ 
+\hline 
+GDP & 7935.35 & 6060.60 & 6739.06 & 542.40 & 23315.10 \\ 
+Labour Cost & 4321.26 & 3395.45 & 3601.39 & 301.30 & 12538.50 \\ 
+Adjustment to GDP & 1201.91 & 839.75 & 1049.32 & 97.30 & 3590.10 \\ 
+\hline\hline
+\end{tabular}
+\caption{\textsc{Descriptive Statistics for Labour Cost and GDP}}
+\label{tab:summ}
+	\end{table}
+\qedblack
+\end{Solution}
+}
+
+\bigskip
+
+\subsubsection{\textsc{Question 1.2.4}}
+\problem{Compute ``Net GDP'' as ``Gross Domestic Product'' minus ``Adjustment to GDP'' and the ratio of ``Compensation to employees'' to ``Net GDP''. Plot the ratio you obtained over time. Interpret your findings with the background of the Cobb-Douglas production function. Report the average of the ratio.
+}
+\solution{\begin{Solution}
+	\begin{marginfigure}
+		\includegraphics[scale = 0.12]{1.2.4.png}
+		\caption{\textsc{Labour Share in Areas}}
+		\label{fig:area}
+	\end{marginfigure}
+	\normalfont
+	\fbox{\textsc{Interpretation:}} Here the average of the ratio is
+	\begin{align*}
+		\mu_{\text{Labour Share}} = 0.6523.
+	\end{align*}
+	Figure (\ref{fig:area}) along with the above average depicts that labour expenditure constitutes larger proportion relative to other factors of inputs (over 50 \%). Under the assumption of the Cobb-Douglas production function \sidenote{Here, not necessarily \inline{K_t^\alpha (A_t L_t)^{1-\alpha}}, but also more generic functional form, \inline{K_t^\alpha L_t^{1-\alpha}}, with constant returns to scale property holds.}, by \textsc{Question 1.2.2}, we know:
+	\begin{enumerate}
+		\item [+] (If we define labour cost in effective labour terms, namely, \inline{\frac{w_t A_t L_t}{Y_t}}), we could say that the average of labour share is \inline{1-\alpha = 0.6523},
+		\item [+] the \textbf{output elasticity with respect to labour} should be about 0.65, namely,
+		\begin{align*}
+		\epsilon_L = \pd{Y_t}{L_t} \frac{L_t}{Y_t}=(1-\alpha) \lrbkt{\frac{K_t}{L_t}}^\alpha \frac{L_t}{Y_t}=1-\alpha.
+		\end{align*}
+	\end{enumerate} 
+	
+	Moreover, by recent empirical findings, the calibration parameter for capital share is about 0.2852 \citep{gomme2013calibration}, so capital share together with \inline{\mu_{\text{Labour Share}}} adds up to one, implies that our findings about the labour share approximately coincides with the literature. \par 
+	\begin{figure}[h!]
+		\includegraphics[width = 1.1\textwidth]{1.2.4main.png}
+		\caption{\textsc{Ratio of Compensation of Employees (coe) and Net GDP}}
+		\label{fig:ratio}
+	\end{figure}
+	Further, \fbox{in Figure (\ref{fig:ratio}) presents the ratio plot requested}. From this graph, we could see the ratio is in decreasing trend, meaning labour share in production has been declining. One possible reason for this is that the growth rate of compensation of labour is smaller than the growth of productivity, to see this:
+	\begin{align*}
+		g_{LS} &\equiv \td{\ln w_t L_t}{w_t L_t} \td{w_t L_t}{t} - \td{\ln Y_t}{Y_t} \td{Y_t}{t} < 0 \\ &\text{iff} \quad g_{coe} < g_{Y}.
+	\end{align*}
+	\qedblack
+\end{Solution}
+}
+
+\bigskip
+
+\subsubsection{\textsc{Question 1.2.5}}
+\problem{Obtain ``Fixed Assets'' from \href{https://apps.bea.gov/iTable/?ReqID=10&step=2#eyJhcHBpZCI6MTAsInN0ZXBzIjpbMiwzLDNdLCJkYXRhIjpbWyJUYWJsZV9MaXN0IiwiMTYiXSxbIlNjYWxlIiwiLTkiXSxbIkZpcnN0X1llYXIiLCIxOTYwIl0sWyJMYXN0X1llYXIiLCIyMDIxIl0sWyJTZXJpZXMiLCJBIl1dfQ==}{Table 1.1} \citep{fixedass1.2.5} \sidenote{For this, go to the \href{https://apps.bea.gov/iTable/?ReqID=10&step=2}{National Data on Fixed Assets}, duration of study is 1960-2021, frequence in use is \textit{annual}, unit in use is \textit{billions}.} as ``Capital Stock'', \inline{K_t}. Compute and plot the ``Capital-Output-Ratio'' by relating this to ``Gross Domestic Product'' and obtain the average.
+}
+\solution{\begin{Solution}
+	\normalfont
+	Here the average of the ratio is
+	\begin{align*}
+		\mu_{\text{k/y(unadj.) ratio}} &= 2.9299; \\ \mu_{\text{k/y(net) ratio}} &=3.4564.
+	\end{align*}
+	\begin{figure}
+		\includegraphics[scale = 0.21]{1.2.5.png}
+		\caption{\textsc{Capital-Output Ratio over time}}
+		\label{fig:kyratio}
+	\end{figure}
+	The plot requested can be found at Figure (\ref{fig:kyratio}). \sidenote{in \citep{gomme2013calibration}, the calibrated parameter for capital-output ratio is 1.6590.}
+\end{Solution}
+}
+
+\bigskip
+
+\subsubsection{\textsc{Question 1.2.6}}
+\problem{Go to NIPA \href{https://apps.bea.gov/iTable/?ReqID=10&step=2#eyJhcHBpZCI6MTAsInN0ZXBzIjpbMiwzXSwiZGF0YSI6W1siVGFibGVfTGlzdCIsIjg2Il1dfQ==}{Table 1.3} \citep{depreciation1.2.6} \sidenote{Also in the National Data on Fixed Assets table.} and download the series of depreciation of fixed assets and use the capital stock data to compute the depreciation rate \inline{\delta_t}. Plot it and compute its mean.
+}
+\solution{\begin{Solution}
+	\normalfont
+	Here the depreciation rate is computed based on
+	\begin{align*}
+		\delta = \frac{\text{Fixed Asset Depreciation}}{\text{Fixed Asset (Capital Stock)}},
+	\end{align*}
+	Depreciation rate's mean value is
+	\begin{align*}
+		\mu_{\delta}=0.0495.
+	\end{align*}
+	\begin{figure}
+		\includegraphics[scale = 0.24]{1.2.6.png}
+		\caption{\textsc{Depreciation Rate over time}}
+		\label{fig:kyratio}
+	\end{figure}
+\end{Solution}
+}
+
+\bigskip
+
+\subsubsection{\textsc{Question 1.2.7}}
+\problem{Deflate ``GDP'' using the ``GDP deflator'' and ``Capital Stock'' by the price index for ``Gross private domestic investment'' \citep{gdpd1.2.7} to obtain real variables \sidenote{from \href{https://apps.bea.gov/iTable/?reqid=19&step=3&isuri=1&1910=x&0=-99&1921=survey&1903=26&1904=1960&1905=2017&1906=q&1911=0#eyJhcHBpZCI6MTksInN0ZXBzIjpbMSwyLDNdLCJkYXRhIjpbWyJOSVBBX1RhYmxlX0xpc3QiLCI0Il0sWyJDYXRlZ29yaWVzIiwiU3VydmV5Il1dfQ==}{Table 1.1.4}}. Download also ``Total hours worked in domestic industries'' \citep{totalhoursw1.2.7a, totalhoursw1.2.7b, totalhoursw1.2.7c} \sidenote{from \href{https://apps.bea.gov/iTable/?reqid=19&step=2&isuri=1&categories=survey#eyJhcHBpZCI6MTksInN0ZXBzIjpbMSwyLDNdLCJkYXRhIjpbWyJjYXRlZ29yaWVzIiwiU3VydmV5Il0sWyJOSVBBX1RhYmxlX0xpc3QiLCIyMTAiXV19}{Tables 6.9B, 6.9C, 6.9D}, also available at \href{https://fred.stlouisfed.org/series/B4702C0A222NBEA}{FRED, B4702C0A222NBEA}} and label it as \inline{L_t}. From
+\begin{align*}
+	Y_t^r = \lrbkt{K_t^r}^{\alpha_t} \lrbkt{A_t L_t}^{1-\alpha_t}
+\end{align*}
+where the superscript \inline{r} denotes real variables and \inline{\alpha_t} is obtained from the time series of the labour share above. Compute \inline{A_t}. Compute the plot its growth rate \inline{g_t} \sidenote{Throughout you may compute growth rates as \inline{x_t = \frac{X_t - X_{t-1}}{X_{t-1}}}. Then \inline{x = \bar{x}_t} is the average growth rate.} as well as its mean \inline{g} and interpret it.
+}
+\solution{\begin{Solution}
+	\normalfont
+	Computed \inline{g_{A_t}=0.1961}, namely the growth rate of technology. Analytically, \inline{A_t^{1-\alpha_t}} is the Solow residual, and also called total factor productivity. The growth rate of TFP is then \inline{(1-\alpha) \cdot g_{A_t}}. \par 
+	\begin{figure}
+		\includegraphics[scale = 0.2]{1.2.7.png}
+		\caption{\textsc{Growth rate of Technology}}
+		\label{fig:6}
+	\end{figure}
+	Figure (\ref{fig:6}) demonstrates the evolution of $g_{A_t}$. From this graph, we can observe that the growth rate of technology approximately fluctuates around its mean value.
+	\qedblack
+\end{Solution}
+}
+
+\bigskip
+
+\subsubsection{\textsc{Question 1.2.8}}
+\problem{From your sequence of \inline{L_t} compute the growth rate of aggregate hours worked \inline{n_t} and plot it. Also compute its mean \inline{n}.
+}
+
+\solution{\begin{Solution}
+	\normalfont
+	Similarly to the previous analysis and method, Figure (\ref{fig:7}) demonstrates the growth rate of hours worked. Computed mean is \inline{n = 0.0133}.
+	\begin{figure}
+		\includegraphics[scale = 0.2]{1.2.8.png}
+		\caption{\textsc{Growth rate of} $L_t$}
+		\label{fig:7}
+	\end{figure}
+	\qedblack
+\end{Solution}
+}
+
+\bigskip
+
+\subsubsection{\textsc{Question 1.2.9}}
+\problem{From now on, base the mean computations of \inline{n, g, \delta} on the data for the past 20 years. Using this data, compute \inline{s^*} \sidenote{\inline{s^* = 0.2} is given.}. How does it mean compare to \inline{s^{GR}}?
+}
+\solution{\begin{Solution}
+	\normalfont
+	So far, \inline{n = 0.0133}, \inline{\delta = 0.0495}, \inline{g = 0.1961}.
+	Plug in to the previously written model, \inline{s=0.2453}. In Comparison, very close to steady state value of saving rate.
+\end{Solution}
+}
+
+\bigskip
+
+
+\subsubsection{\textsc{Question 1.2.10}}
+\problem{Simulate \inline{k_t, y_t, c_t} for some periods using a programming language of your choice. Interpret it.
+}
+\solution{\begin{Solution}
+	\normalfont
+	\fbox{\textsc{Interpretation}:} With the set of parameters, 
+	\begin{enumerate}
+		\item [+] it converges;
+		\item [+] the periods needed for \inline{k_t} to converge is approximately \inline{T=10}.
+		\item [+] as \inline{T} grows larger, the degree of concavity for the capital's evolution is larger.
+	\end{enumerate}
+	
+	\begin{figure}
+		\includegraphics[scale = 0.23]{1.2.10.png}
+		\caption{\textsc{Simulation, T=10, 30, 50, 100}}
+		\label{fig:9}
+	\end{figure}
+	Figure (\ref{fig:9}) is for demonstrating \inline{k_t}, since both \inline{y_t} and \inline{c_t} are monotonic transformation of \inline{k_t}, it is sufficient.
+	\qedblack
+\end{Solution}
+}
+
+\newpage
+
+\subsection{1.3 Empirical Analysis}
+\problem{Go to the AMECO database and download, for all available countries, \textit{i)} Civilian employment, \textit{ii)} GDP, \textit{iii)} the Solow residual, \textit{iv)} gross domestic savings, \textit{v)} gross domestic consumption.
+} \par 
+
+\bigskip
+
+\subsubsection{\textsc{Question 1.3.1}}
+\problem{Compute the gross domestic saving rate \inline{s_t = \frac{S_t}{Y_t}} for all countries and detrended domestic consumption using the sequences for \inline{A_t L_t}.
+}
+\solution{\begin{Solution}
+	\normalfont
+	The study scope after excluding the missing is 1994-2021, while 22 countries included in the sample. In Table (\ref{tab:summm}) \sidenote{See Annex.}, mean values of the requested computed values for each countries are presented. \qedblack
+\end{Solution}
+}
+
+\subsubsection{\textsc{Question 1.3.2}}
+\problem{Construct a scatter plot of \inline{\ln{c_t}} on \inline{s_t}.
+}
+\solution{\begin{Solution}
+	\begin{figure}
+		\includegraphics[scale = 0.2]{scar.png}
+		\caption{\textsc{log of detrended consumption on saving rates}}
+	\end{figure}
+\end{Solution}
+}
+\bigskip
+
+\subsubsection{\textsc{Question 1.3.3}}
+\problem{Run a pooled regression
+\begin{align*}
+	\ln{c_t} = \beta_0 + \beta_1 s_t + \beta_2 s_t^2
+\end{align*}
+and interpret your findings.
+}
+\solution{\begin{Solution}
+	\normalfont
+	\texttt{p = polyfit(x,y,n)} returns the coefficients for a polynomial $p(x)$ of degree $n$ that is a best fit (in a least-squares sense) for the data in $y$.
+	\begin{align*}
+		p = [\beta_2, \beta_1, \beta_0]=[0.000064, -0.0083, -7.833]
+	\end{align*}
+	\fbox{\textsc{Interpretation}}: hump shape \sidenote{upside-down U shape} relationship between log of detrended consumption and saving rate, while taking out of the effect \inline{A_t L_t} makes the level of the parameter small.
+	\qedblack
+\end{Solution}
+}
+
+
+\newpage
+\subsection{Literature}
+\problem{Read and briefly \sidenote{half a page for each paper} summarise the following papers:
+\begin{enumerate}
+	\item [+] \citep{solow1956}, ``A Contribution to the Theory of Economic Growth'';
+	\item [+] \citep{mankiwetal1992}, ``A Contribution to the Empirics of Economic Growth''.
+\end{enumerate}
+}
+\subsubsection{\textsc{Literature Review on Solow (1956)}}
+In the paper which is based on Harrod-Domar model, contribution manifests itself in the following ways, firstly, this version of growth model forsaken fixed proportion assumptions; secondly, it's the very foundation of the concept, ``the state of the balanced growth '', which characterised a sense of convergence to a natural rate. \par
+Regarding assumptions, Solow-Swan growth model posits that as more capital is added to a closed economy, the additional output from each unit of capital will decrease. This is known as diminishing returns. In the absence of technological advancements or an increasing workforce, at some point the amount of capital being produced will only be enough to replace capital that has been lost through depreciation. At this point, the economy will stop growing. If there are non-zero rates of labor growth, the situation becomes more complex but the basic concept still applies. The short-term rate of growth will slow as diminishing returns take effect, eventually reaching a constant, steady-state rate of growth. If there is also technological progress, output per worker-hour will remain constant but per-capita output will grow at the rate of technological progress in the steady-state. \par 
+The paper also mentions about its extensions such as technology changes, supply of labor, changeable saving ratio, taxation and variable population growth. It expands upon the Harrod-Domar model by including labor as a factor of production and allowing for capital-output ratios that are not fixed. This allows for the distinction between increasing capital intensity and technological progress. Solow considers the fixed proportions production function to be a key assumption in the instability results of the Harrod-Domar model and examines the implications of alternative specifications, such as the Cobb-Douglas and constant elasticity of substitution. While this model has become a central and celebrated concept in economics, recent reappraisals of Harrod's work have questioned its origins and focus on economic growth and fixed proportions production function. \par 
+\qedblack
+\newpage
+
+\subsubsection{\textsc{Literature Review on Mankiw et al. (1992)}}
+This paper bases itself again on ``A Contribution to the Theory of Economic Growth''\citep{solow1956}, a contribution on top of the contribution, in the sense that the authors includes the concept of human capital in addition to physical capital in order to better understand the reasons for the lack of investment in poorer countries. According to this model, low levels of human capital in such countries leads to lower levels of output and a decrease in the marginal productivity of capital, which in turn makes these countries less attractive for investment. \par
+Two fundamental dynamic equations in this version is brought up:
+\begin{align*}
+	\begin{aligned}
+& \dot{k}=s_K k^\alpha h^\beta-(n+g+\delta) k \\
+& \dot{h}=s_H k^\alpha h^\beta-(n+g+\delta) h
+\end{aligned}
+\end{align*}
+By parallel comparing, previously, in the Solow-Swan model, the rate of growth in productivity is determined by factors outside the model, represented by the residual after accounting for capital accumulation. However, this paper proposed an augmented version of the model that takes into account human capital as a factor of production \citep{mankiwetal1992}. This modification allows for a more accurate explanation of the differences in income across countries, as the effect of human capital is now accounted for in the model. As a result, the residual TFP growth rate is lower in this model than in the basic Solow-Swan model.
+
+\qedblack
+
+
+
+
+\newpage
+
+\section{Annex}
+The following summarises files, ``\texttt{Q116\_SolowDynamics.m}'', ``'', and ``'', can be found at the \texttt{.zip} folder in the submission. \sidenote{Related to all the outputs (graphics, tables) produced below, when replicate, please use Matlab Add-on ``\textit{Professional Plots}'' \citep{atharva2021} and ``\textit{MATLAB Table to LaTeX converter
+}'' \citep{convert} first.}
+
+\subsection{To accompany \textsc{Question 1.1.6}} \label{sec:116}
+\begin{lstlisting}
+%% Question 1.1.6
+clc;clear;
+%%
+%Before anything, set the graph aesthetics
+PS = PLOT_STANDARDS();
+
+%Define parameter values
+s = 0.2;
+alpha = 0.3;
+n = 0.01;
+delta = 0.05; 
+g = 0.05;
+
+%Create a number of 1000 k values from 1 to 3
+k = linspace(0, 3, 1000);
+
+%Compute sk^alpha and (n+g+delta)k
+k_alpha = k .^ alpha;
+sk_alpha = s .* k .^ alpha;
+ngd_k = (n + g + delta + n*g) .* k;
+line = s .* k .^ alpha - (n + g + delta + n*g) .* k;
+
+%Find the intersection point of the two functions except for k=0
+intersection_point = fzero(@(k) s*k^alpha-(n+g+delta+n*g)*k, [1,3]);
+
+%Create a figure 
+figure(1);
+fig1_comps.fig = gcf;
+grid on;
+hold on;
+
+%Plot the requested functions
+fig1_comps.p0 = plot(k, k_alpha);
+fig1_comps.p1 = plot(k, sk_alpha);
+fig1_comps.p2 = plot(k, ngd_k);
+fig1_comps.p3 = scatter(intersection_point,...
+    s*intersection_point^alpha);
+fig1_comps.p5 = plot(k, line);
+
+%Graph aesthetics
+set(fig1_comps.p0, 'Color', PS.Blue4, 'LineWidth', 6);
+set(fig1_comps.p1, 'Color', PS.Blue5, 'LineWidth', 6);
+set(fig1_comps.p2, 'Color', PS.Red5, 'LineWidth', 5.5);
+set(fig1_comps.p3, 'Marker','diamond', ...
+    'MarkerFaceColor', PS.Orange5)
+set(fig1_comps.p5, 'Color', PS.Grey2, 'LineWidth', 6);
+
+xline(intersection_point, 'Color','black','LineStyle','--');
+yline(0, 'Color', 'black', 'LineWidth',5);
+
+%Label the axis and the title
+xlabel('$k_t$','FontSize',28,'Interpreter','latex');
+ylabel('Function Values', 'FontSize',28, 'FontName','Palatino');
+legend('$f(k)$',...
+    '$sk^\alpha$',...
+    '$(n+g+\delta+ng)k$', ...
+    'Equilibrium Capital Stock $k^*$',...
+    '$sk^\alpha-(n+g+\delta+ng)k$',...
+    'Location','best',...
+    'Interpreter','latex',...
+    'FontSize', 28)
+text(2.3, -0.01, '$k^* \approx 2.33$', 'Interpreter','latex', 'FontSize', 28);
+hold off;
+\end{lstlisting}
+
+\subsection{To accompany \textsc{Question 1.2.3}}
+\begin{lstlisting}
+%% Question 1.2.3
+clc;clear;
+
+% Set the working directory to the place where the current file is saved
+tmp = matlab.desktop.editor.getActive;
+cd(fileparts(tmp.Filename));
+\end{lstlisting}
+
+\begin{lstlisting}
+% Read and extract Gross Domestic Product Data from Table 1.1.5
+
+T115 = readtable('Table 1.1.5.xlsx', 'VariableNamingRule','preserve');
+gdp = T115{1,3:end};
+
+% Read and extract Compensation of Employees from Table 1.12
+
+T112 = readtable('Table 1.12.xlsx', 'VariableNamingRule','preserve');
+coe = T112{2,3:end};
+
+% Extract and munipulate for ... from Table 1.12
+
+% Proprietors' income with IVA and CCAdj
+% Taxes on production and imports
+% Business current transfer payments (net)
+% Current Surplus of government enterprises
+
+adj1 = T112{32, 3:end};
+adj2 = T112{19, 3:end};
+adj3 = T112{21, 3:end};
+adj4 = T112{25, 3:end};
+
+adjgdp = adj1+adj2+adj3+adj4;
+\end{lstlisting}
+
+\newpage
+
+
+\begin{lstlisting}
+%% A quick descriptive stats for variables in 1.2.3
+
+variables = {'gdp', 'coe', 'adjgdp'};
+mean_values = zeros(1,3);
+median_values = zeros(1,3);
+std_values = zeros(1,3);
+min_values = zeros(1,3);
+max_values = zeros(1,3);
+
+for i = 1:length(variables)
+    mean_values(i) = mean(variables{i});
+    median_values(i) = median(variables{i});
+    std_values(i) = std(variables{i});
+    min_values(i) = min(variables{i});
+    max_values(i) = max(variables{i});
+end
+stats = {'mean', 'median', 'std', 'min', 'max'};
+
+summary_table = array2table(cell(length(variables),length(stats)),...
+    'VariableNames',stats);
+for i = 1:length(variables)
+    for j = 1:length(stats)
+        summary_table{i,j} = arrayfun(@(x) sprintf('%.2f',x),...
+            eval([stats{j} '(' variables{i} ')']),'UniformOutput',false);
+    end
+end
+summary_table.Properties.RowNames = variables;
+
+%% (Please use the add-on 'MATLAB Table to LaTeX converter')
+
+% Exporting Summary Stats as solution
+table2latex(summary_table, 'Q123summary_stats.tex')
+\end{lstlisting}
+
+\subsection{To Accompany Question 1.2.4}
+\begin{lstlisting}
+%% Question 1.2.4 Compute Net GDP
+
+%Before anything, set the graph aesthetics
+PS = PLOT_STANDARDS();
+
+netgdp = gdp - adjgdp;
+labshare = coe ./ netgdp;
+m_labshare = mean(labshare);
+
+%% An Area Plot for Labshare
+
+T = 1960:2021;
+figure(2);
+fig1_comps.fig = gca;
+grid on;
+hold on;
+
+fig2_comps.p0 = area(T, netgdp);
+fig2_comps.p1 = area(T, coe);
+
+set(fig2_comps.p0, 'FaceColor', PS.Blue3);
+set(fig2_comps.p1, 'FaceColor', PS.Blue5);
+
+xlabel('$T$','FontSize',18,'Interpreter','latex');
+ylabel('Values of GDP(billions)', 'FontSize',22, 'FontName','Palatino');
+legend('Net GDP','Compensation of Employees',...
+    'FontSize',18, 'FontName','Palatino', 'Location', 'Best');
+
+hold off;
+\end{lstlisting}
+
+\begin{lstlisting}
+%% A Line Plot for Labshare (requested by the Q)
+
+T = 1960:2021;
+figure(3);
+fig3_comps.fig = gcf;
+grid on;
+hold on;
+
+fig3_comps.p0 = plot(T, labshare);
+fig3_comps.p1 = yline(m_labshare, 'Color','black',...
+    'LineStyle','--');
+
+set(fig3_comps.p0, 'Color', PS.Red5, 'LineWidth', 3, 'Marker','diamond');
+text(2020, 0.6, '$\mu_{LS}=0.6523$', ...
+    'Interpreter','latex', 'FontSize', 18);
+
+xlabel('$T$','FontSize',22,'Interpreter','latex');
+ylabel('Labour Share Over Time', 'FontSize',20, 'FontName','Palatino');
+legend('$\frac{coe}{gdp}$', '$\mu_{LS}$', ...
+    'Interpreter', 'latex',...
+    'location', 'best','Fontsize', 24);
+
+hold off;
+
+\end{lstlisting}
+
+\subsection{To Accompany Question 1.2.5}
+\begin{lstlisting}
+%% Question 1.2.5 Plot for kyratio
+
+T1 = readtable('Table 1.1.xlsx', 'VariableNamingRule','preserve');
+kstock = T1{2, 3:end};
+
+%capital-output ratio:
+kyratio = kstock ./gdp;
+m_kyratio = mean(kyratio);
+kyratio2 = kstock ./netgdp;
+m_kyratio2 = mean(kyratio2);
+%figure
+T = 1960:2021;
+
+figure(4);
+fig4_comps.fig = gcf;
+grid on;
+hold on;
+
+fig4_comps.p0 = plot(T, kyratio);
+fig4_comps.p1 = yline(m_kyratio, 'Color','black',...
+    'LineStyle','--');
+
+set(fig4_comps.p0, 'Color', PS.Blue5, 'LineWidth', 3, 'Marker','+');
+text(2020, 0.6, '$\mu_{LS}=0.6523$', 'Interpreter','latex', ...
+    'FontSize', 18);
+
+xlabel('$T$','FontSize',22,'Interpreter','latex');
+ylabel('Capital-Output Ratio Over Time', ...
+    'FontSize',20, 'FontName','Palatino');
+legend('$\frac{kstock}{gdp}$', '$\mu_{KS}$', ...
+    'Interpreter', 'latex',...
+    'location', 'best','Fontsize', 24);
+
+hold off;
+\end{lstlisting}
+
+\subsection{To Accompany Question 1.2.6}
+\begin{lstlisting}
+%% Question 1.2.6 Compute depreciation rate
+
+T13 = readtable('Table 1.3.xlsx', 'VariableNamingRule','preserve');
+depreciation = T13{2, 3:end};
+
+delta = depreciation ./ kstock;
+m_delta = mean(delta);
+
+T = 1960:2021;
+
+figure(5);
+fig5_comps.fig = gcf;
+grid on;
+hold on;
+
+fig5_comps.p0 = plot(T, delta);
+fig5_comps.p1 = yline(m_delta, 'Color','black',...
+    'LineStyle','--');
+
+set(fig5_comps.p0, 'Color', PS.Grey5, 'LineWidth', 3, 'Marker','+');
+text(2000, 0.05, '$\mu_{\delta}=0.0495$', ...
+    'Interpreter','latex', 'FontSize', 18);
+
+xlabel('$T$','FontSize',22,'Interpreter','latex');
+ylabel('Depreciation Rate over time', ...
+    'FontSize',20, 'FontName','Palatino');
+legend('$\delta = \frac{Depreciation}{kstock}$', '$\mu_{\delta}$', ...
+    'Interpreter', 'latex',...
+    'location', 'best','Fontsize', 22);
+
+hold off;
+\end{lstlisting}
+
+\subsection{To Accompany Question 1.2.7}
+\begin{lstlisting}
+%% Question 1.2.7
+
+% Fetch price indexes for gdp and capital stock
+T114 = readtable('Table 1.1.4.xlsx', 'VariableNamingRule','preserve');
+gdpd = T114{1, 3:end};
+capp = T114{7, 3:end};
+
+% Deflate gdp and capital stock
+realgdp = gdp ./ gdpd;
+realk = kstock ./capp;
+
+% Fetch Total hours worked in domestic industries
+% and glue them together from three Tables
+T69B = readtable('Table 6.9B.xlsx', 'VariableNamingRule','preserve');
+h6087 = T69B{1, 3:end};
+T69C = readtable('Table 6.9C.xlsx', 'VariableNamingRule','preserve');
+h8800 = T69C{1, 4:end};
+T69D = readtable('Table 6.9D.xlsx', 'VariableNamingRule','preserve');
+h0121 = T69D{1, 4:end};
+hw = horzcat(h6087, h8800, h0121);
+%
+% Compute A_t
+capcomponent = realk.^(1-labshare);
+hwcomponent = hw.^labshare;
+power = 1./(1-labshare);
+A = (realgdp ./ (capcomponent .* hwcomponent)).^power;
+
+% Compute A_t growth rate
+gA = diff(A) ./ A(1:end-1);
+m_gA = mean(gA);
+
+% Graph~
+figure(6);
+fig5_comps.fig = gcf;
+grid on;
+hold on;
+
+T = 1960:2020;
+fig6_comps.p0 = plot(T, gA);
+fig6_comps.p1 = yline(m_gA, 'Color','black',...
+    'LineStyle','--');
+set(fig6_comps.p0, 'Color', PS.Red3, 'LineWidth', 3, 'Marker','+');
+
+xlabel('$T$','FontSize',22,'Interpreter','latex');
+ylabel('Growth Rate of $A_t$', ...
+    'FontSize',20, 'FontName','Palatino','Interpreter','latex');
+legend('$g_{A_t}$', '$\mu_{g_{A_t}}$', ...
+    'Interpreter', 'latex',...
+    'location', 'best','Fontsize', 22);
+
+hold off;
+\end{lstlisting}
+
+\subsection{To Accompany Question 1.2.8}
+\begin{lstlisting}
+%% Question 1.2.8 Growth rate of L_t
+
+n = diff(hw) ./ hw(1:end-1);
+m_n = mean(n);
+
+% Graph~
+figure(7);
+fig7_comps.fig = gcf;
+grid on;
+hold on;
+
+T = 1960:2020;
+fig7_comps.p0 = plot(T, n);
+fig7_comps.p1 = yline(m_n, 'Color','black',...
+    'LineStyle','--');
+set(fig7_comps.p0, 'Color', PS.Green5, 'LineWidth', 3, 'Marker','o');
+
+xlabel('$T$','FontSize',22,'Interpreter','latex');
+ylabel('Growth Rate of $L_t$', ...
+    'FontSize',20, 'FontName','Palatino','Interpreter','latex');
+legend('$g_{L_t}$', '$\mu_{g_{L_t}}$', ...
+    'Interpreter', 'latex',...
+    'location', 'best','Fontsize', 22);
+
+hold off;
+\end{lstlisting}
+
+\subsection{To Accompany Question 1.2.10}
+\begin{lstlisting}
+%% Question 1.2.10
+clc;clear;
+
+% Set the working directory to the place where the current file is saved
+tmp = matlab.desktop.editor.getActive;
+cd(fileparts(tmp.Filename));
+
+% Before anything, set the graph aesthetics
+PS = PLOT_STANDARDS();
+%% Simulation for T = 10, 30, 50 and 100
+
+% Parameters
+alpha = 1-0.6523;
+s = 0.2;
+n = 0.0133;
+delta = 0.0495;
+g = 0.1961;
+
+% Define time periods
+T = [10 30 50 100];
+
+% Initialize variables
+k = zeros(length(T), max(T));
+y = zeros(length(T), max(T));
+c = zeros(length(T), max(T));
+
+% Loop through time periods
+for i = 1:length(T)
+    % Initialize starting point
+    k(i,1) = 1;
+    for t = 2:T(i)
+        k(i,t) = s*k(i,t-1)^alpha + (1-delta)*k(i,t-1) - (n+g)*k(i,t-1);
+        y(i,t) = k(i,t)^alpha;
+        c(i,t) = (1-s)*y(i,t);
+    end
+end
+
+% Plot results in four subplots
+figure(8);
+hold on;
+subplot(2,2,1);
+k1 = plot(1:T(1), k(1,1:T(1)));
+set(k1, 'Color', PS.Blue1, 'LineWidth', 2, 'Marker','o')
+title('$T=10$', 'Interpreter','latex');
+xlabel('Time', 'FontName','Palatino');
+ylabel('Capital','FontName','Palatino');
+
+subplot(2,2,2);
+k2 = plot(1:T(2), k(2,1:T(2)));
+set(k2, 'Color', PS.Blue2, 'LineWidth', 2, 'Marker','o')
+title('$T=30$', 'Interpreter','latex');
+xlabel('Time', 'FontName','Palatino');
+ylabel('Capital','FontName','Palatino');
+
+subplot(2,2,3);
+k3 = plot(1:T(3), k(3,1:T(3)));
+set(k3, 'Color', PS.Blue3, 'LineWidth', 2, 'Marker','o')
+title('$T=50$', 'Interpreter','latex');
+xlabel('Time', 'FontName','Palatino');
+ylabel('Capital','FontName','Palatino');
+
+subplot(2,2,4);
+k4 = plot(1:T(4), k(4,1:T(4)));
+set(k4, 'Color', PS.Blue4, 'LineWidth', 2, 'Marker','o')
+title('$T=100$', 'Interpreter','latex');
+xlabel('Time', 'FontName','Palatino');
+ylabel('Capital','FontName','Palatino');
+
+hold off;
+\end{lstlisting}
+
+\subsection{To Accompany Question 1.3}
+\begin{lstlisting}
+%% Question 1.3.1
+clc;clear;
+
+% Set the working directory to the place where the current file is saved
+tmp = matlab.desktop.editor.getActive;
+cd(fileparts(tmp.Filename));
+
+%% 1.3.1 Data Import, Saving rate and 
+ameco = readtable('AMECOclean.xlsx', 'ReadVariableNames',true,...
+    'VariableNamingRule','preserve');
+
+saving = ameco{1:22, 3:end};
+gdp = ameco{23:44, 3:end};
+consumption = ameco{45:66, 3:end};
+TFP = ameco{67:88, 3:end};
+employment = ameco{89:110, 3:end};
+
+% saving rate
+s = saving./gdp;
+m_s = mean(s, 2);
+countries = ameco{1:22, 2};
+saving_T = table(countries, m_s);
+% 
+
+%
+AL = TFP .* employment;
+dconsumption = consumption./AL;
+m_dc = mean(dconsumption, 2);
+final_T = table(countries, m_s, m_dc);
+
+table2latex(final_T, 'Q131.tex');
+
+
+%% 1.3.2 Scatter Plot
+lconsumption = log(dconsumption);
+sca = scatter(saving, lconsumption);
+xlabel('$s$', 'Interpreter','latex');
+ylabel('$\ln c_t$', 'Interpreter','latex')
+
+
+%% 1.3.3 Pooled Regression
+
+newdconsumption = reshape(lconsumption, [594,1]);
+s2 = s.^2;
+news = reshape(s, [594,1]);
+news2 = reshape(s2, [594,1]);
+p = polyfit(news, newdconsumption, 2);
+\end{lstlisting}
+
+\newpage
+
+\begin{table}
+		\caption{Mean Value of European Countries' saving rate}
+		\label{tab:summm}
+		\centering
+		\begin{tabular}{lll}
+countries & \inline{\mu_s} & \inline{\mu_{\frac{C}{AL}}} \\ 
+\hline \hline
+Belgium & 0.29037 & 0.00054546 \\ 
+Czechia & 4.6013 & 0.00030112 \\ 
+Denmark & 2.6815 & 0.00045623 \\ 
+Germany & 0.28424 & 0.00046762 \\ 
+Estonia & 0.16856 & 0.00023488 \\ 
+Ireland & 0.29032 & 0.00052855 \\ 
+Greece & 0.10254 & 0.00041756 \\ 
+Spain & 0.19484 & 0.00044101 \\ 
+France & 0.254 & 0.00049088 \\ 
+Italy & 0.20243 & 0.0005158 \\ 
+Latvia & 0.12673 & 0.00026489 \\ 
+Lithuania & 0.10013 & 0.00028947 \\ 
+Luxembourg & 0.29588 & 0.00072485 \\ 
+Hungary & 35.2106 & 0.00028018 \\ 
+Netherlands & 0.29502 & 0.00046761 \\ 
+Austria & 0.28816 & 0.00046788 \\ 
+Poland & 0.42925 & 0.00029502 \\ 
+Portugal & 0.13332 & 0.00034247 \\ 
+Slovenia & 0.18558 & 0.00032245 \\ 
+Slovakia & 0.15113 & 0.00030712 \\ 
+Finland & 0.30962 & 0.00044559 \\ 
+Sweden & 14.173 & 0.00047297 \\ 
+\hline \hline
+\end{tabular}	
+\end{table}
+
+\newpage
+\bibliography{bib.bib}
+	
+\end{document}
